@@ -35,12 +35,12 @@ jobs:
         DEEPFENCE_CONSOLE_URL: ${{ env.DEEPFENCE_CONSOLE_URL }}
         DEEPFENCE_KEY: ${{ env.DEEPFENCE_KEY }}
         FULL_IMAGE_NAME: python-server:${{ github.sha }}
-        FAIL_CVE_COUNT: 253 # Fail build if number of vulnerabilities found is >= this number. Set -1 to pass regardless of vulnerabilities.
-        FAIL_CRITICAL_CVE_COUNT: 34 # Fail build if number of critical vulnerabilities found is >= this number. Set -1 to pass regardless of critical vulnerabilities.
-        FAIL_HIGH_CVE_COUNT: 93 # Fail build if number of high vulnerabilities found is >= this number. Set -1 to pass regardless of high vulnerabilities.
-        FAIL_MEDIUM_CVE_COUNT: 110 # Fail build if number of medium vulnerabilities found is >= this number. Set -1 to pass regardless of medium vulnerabilities.
-        FAIL_LOW_CVE_COUNT: 19 # Fail build if number of low vulnerabilities found is >= this number. Set -1 to pass regardless of low vulnerabilities.
-        FAIL_CVE_SCORE: 11 # Fail build if cumulative CVE score is >= this value. Set -1 to pass regardless of cve score.
+        FAIL_CVE_COUNT: 100 # Fail build if number of vulnerabilities found is >= this number. Set -1 to pass regardless of vulnerabilities.
+        FAIL_CRITICAL_CVE_COUNT: 10 # Fail build if number of critical vulnerabilities found is >= this number. Set -1 to pass regardless of critical vulnerabilities.
+        FAIL_HIGH_CVE_COUNT: 100 # Fail build if number of high vulnerabilities found is >= this number. Set -1 to pass regardless of high vulnerabilities.
+        FAIL_MEDIUM_CVE_COUNT: 100 # Fail build if number of medium vulnerabilities found is >= this number. Set -1 to pass regardless of medium vulnerabilities.
+        FAIL_LOW_CVE_COUNT: 100 # Fail build if number of low vulnerabilities found is >= this number. Set -1 to pass regardless of low vulnerabilities.
+        FAIL_CVE_SCORE: 10 # Fail build if cumulative CVE score is >= this value. Set -1 to pass regardless of cve score.
       run: |
         docker pull deepfenceio/deepfence_package_scanner_ce:v2
         docker run -i --rm --net=host --privileged=true -v /var/run/docker.sock:/var/run/docker.sock:rw deepfenceio/deepfence_package_scanner_ce:v2 package-scanner -source "$FULL_IMAGE_NAME" -console-url=$DEEPFENCE_CONSOLE_URL -deepfence-key=$DEEPFENCE_KEY -fail-on-count=$FAIL_CVE_COUNT -fail-on-critical-count=$FAIL_CRITICAL_CVE_COUNT -fail-on-high-count=$FAIL_HIGH_CVE_COUNT -fail-on-medium-count=$FAIL_MEDIUM_CVE_COUNT -fail-on-low-count=$FAIL_LOW_CVE_COUNT -fail-on-score=$FAIL_CVE_SCORE -scan-type="base,java,python,ruby,php,nodejs,js,dotnet"
