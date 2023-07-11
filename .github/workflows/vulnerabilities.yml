@@ -1,4 +1,4 @@
-name: ci
+name: vulnerabilities scanner
 
 on:
   workflow_dispatch:
@@ -23,20 +23,18 @@ jobs:
 
     # Build docker image for service
     - name: Build docker image
-      uses: docker/build-push-action@v1
+      uses: docker/build-push-action@v4
       with:
+        context: .
         push: false
-        repository: ${{ env.GROUP }}/${{ env.REPO }}
-        tag_with_ref: true
-        tag_with_sha: true
-        tags: ${{ github.sha }}
+        tags: python-server:${{ github.sha }}
 
     # Run Deepfence Vulnerability Mapper to check for vulnerabilities in image
     - name: Run Deepfence Vulnerability Mapper
       env:
         DEEPFENCE_CONSOLE_URL: ${{ env.DEEPFENCE_CONSOLE_URL }}
         DEEPFENCE_KEY: ${{ env.DEEPFENCE_KEY }}
-        FULL_IMAGE_NAME: ${{ env.GROUP }}/${{ env.REPO }}:${{ github.sha }}
+        FULL_IMAGE_NAME: python-server:${{ github.sha }}
         FAIL_CVE_COUNT: 253 # Fail build if number of vulnerabilities found is >= this number. Set -1 to pass regardless of vulnerabilities.
         FAIL_CRITICAL_CVE_COUNT: 34 # Fail build if number of critical vulnerabilities found is >= this number. Set -1 to pass regardless of critical vulnerabilities.
         FAIL_HIGH_CVE_COUNT: 93 # Fail build if number of high vulnerabilities found is >= this number. Set -1 to pass regardless of high vulnerabilities.
