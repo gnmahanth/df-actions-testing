@@ -11,18 +11,18 @@ jobs:
           command: |
             go build -o demo-app src/main.go
       - run:
-          name: Setup common environment variables
-          command: |
-            echo 'export FULL_IMAGE_NAME="go-server:1.0"'
-      - run:
           name: Build image
           command: |
             docker build -t $FULL_IMAGE_NAME .
+          environment:
+            FULL_IMAGE_NAME: "go-server:1.0"
       - run:
           name: Save image to an archive
           command: |
             mkdir docker-image
             docker save -o docker-image/image.tar $FULL_IMAGE_NAME
+          environment:
+            FULL_IMAGE_NAME: "go-server:1.0"
       - persist_to_workspace:
           root: .
           paths:
@@ -35,17 +35,6 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-          name: Setup common environment variables
-          command: |
-            echo 'export DEEPFENCE_KEY=""' >> $BASH_ENV
-            echo 'export DEEPFENCE_CONSOLE_URL=""' >> $BASH_ENV
-            echo 'FAIL_CVE_COUNT=100' >> $BASH_ENV
-            echo 'FAIL_CRITICAL_CVE_COUNT=10' >> $BASH_ENV
-            echo 'FAIL_HIGH_CVE_COUNT=100' >> $BASH_ENV
-            echo 'FAIL_MEDIUM_CVE_COUNT=100' >> $BASH_ENV
-            echo 'FAIL_LOW_CVE_COUNT=100' >> $BASH_ENV
-            echo 'FAIL_CVE_SCORE=10' >> $BASH_ENV
-      - run:
           name: Load image
           command: |
             docker load --input workspace/docker-image/image.tar
@@ -54,6 +43,15 @@ jobs:
           command: |
             docker pull deepfenceio/deepfence_package_scanner_ce:v2
             docker run -i --rm --net=host --privileged=true -v /var/run/docker.sock:/var/run/docker.sock:rw deepfenceio/deepfence_package_scanner_ce:v2 -source"$FULL_IMAGE_NAME" -console-url=${var.DEEPFENCE_CONSOLE_URL} -deepfence-key=${var.DEEPFENCE_KEY} -fail-on-count=$FAIL_CVE_COUNT -fail-on-critical-count=$FAIL_CRITICAL_CVE_COUNT -fail-on-high-count=$FAIL_HIGH_CVE_COUNT -fail-on-medium-count=$FAIL_MEDIUM_CVE_COUNT -fail-on-low-count=$FAIL_LOW_CVE_COUNT -fail-on-score=$FAIL_CVE_SCORE -scan-type="base,java,python,ruby,php,nodejs,js,dotnet"
+          environment:
+            DEEPFENCE_KEY: ""
+            DEEPFENCE_CONSOLE_URL: ""
+            FAIL_CVE_COUNT: 100
+            FAIL_CRITICAL_CVE_COUNT: 10
+            FAIL_HIGH_CVE_COUNT: 100
+            FAIL_MEDIUM_CVE_COUNT: 100
+            FAIL_LOW_CVE_COUNT: 100
+            FAIL_CVE_SCORE: 10
 
   secret:
     docker:
@@ -64,12 +62,7 @@ jobs:
       - run:
           name: Setup common environment variables
           command: |
-            echo 'export DEEPFENCE_KEY=""' >> $BASH_ENV
-            echo 'export DEEPFENCE_CONSOLE_URL=""' >> $BASH_ENV
-            echo 'FAIL_SECRET_COUNT=100' >> $BASH_ENV
-            echo 'FAIL_HIGH_SECRET_COUNT=100' >> $BASH_ENV
-            echo 'FAIL_MEDIUM_SECRET_COUNT=100' >> $BASH_ENV
-            echo 'FAIL_LOW_SECRET_COUNT=100' >> $BASH_ENV
+
       - run:
           name: Load image
           command: |
@@ -79,6 +72,13 @@ jobs:
           command: |
             docker pull deepfenceio/deepfence_secret_scanner_ce:v2
             docker run -i --rm --net=host --privileged=true -v /var/run/docker.sock:/var/run/docker.sock:rw deepfenceio/deepfence_secret_scanner_ce:v2 -image-name "$FULL_IMAGE_NAME  -fail-on-count=$FAIL_CVE_COUNT -fail-on-high-count=$FAIL_HIGH_CVE_COUNT -fail-on-medium-count=$FAIL_MEDIUM_CVE_COUNT -fail-on-low-count=$FAIL_LOW_CVE_COUNT"
+          environment:
+            DEEPFENCE_KEY: ""
+            DEEPFENCE_CONSOLE_URL: ""
+            FAIL_SECRET_COUNT: 100
+            FAIL_HIGH_SECRET_COUNT: 100
+            FAIL_MEDIUM_SECRET_COUNT: 100
+            FAIL_LOW_SECRET_COUNT: 100
 
   malware:
     docker:
@@ -86,15 +86,6 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - run:
-          name: Setup common environment variables
-          command: |
-            echo 'export DEEPFENCE_KEY=""' >> $BASH_ENV
-            echo 'export DEEPFENCE_CONSOLE_URL=""' >> $BASH_ENV
-            echo 'FAIL_MALWARE_COUNT=100' >> $BASH_ENV
-            echo 'FAIL_HIGH_MALWARE_COUNT=100' >> $BASH_ENV
-            echo 'FAIL_MEDIUM_MALWARE_COUNT=100' >> $BASH_ENV
-            echo 'FAIL_LOW_MALWARE_COUNT=100' >> $BASH_ENV
       - run:
           name: Load image
           command: |
@@ -104,6 +95,13 @@ jobs:
           command: |
             docker pull deepfenceio/deepfence_malware_scanner_ce:v2
             docker run -i --rm --net=host --privileged=true -v /var/run/docker.sock:/var/run/docker.sock:rw deepfenceio/deepfence_malware_scanner_ce:v2 -image-name "$FULL_IMAGE_NAME  -fail-on-count=$FAIL_CVE_COUNT -fail-on-high-count=$FAIL_HIGH_CVE_COUNT -fail-on-medium-count=$FAIL_MEDIUM_CVE_COUNT -fail-on-low-count=$FAIL_LOW_CVE_COUNT"
+          environment:
+            DEEPFENCE_KEY: ""
+            DEEPFENCE_CONSOLE_URL: ""
+            FAIL_MALWARE_COUNT: 100
+            FAIL_HIGH_MALWARE_COUNT: 100
+            FAIL_MEDIUM_MALWARE_COUNT: 100
+            FAIL_LOW_MALWARE_COUNT: 100
 
 workflows:
   version: 2
