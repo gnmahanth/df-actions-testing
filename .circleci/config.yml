@@ -19,7 +19,7 @@ jobs:
       - run:
           name: Save image to an archive
           command: |
-            mkdir docker-image
+            mkdir images
             docker save -o images/image.tar $FULL_IMAGE_NAME
           environment:
             FULL_IMAGE_NAME: "go-server:1.0"
