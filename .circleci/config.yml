@@ -30,9 +30,10 @@ jobs:
 
   vulnerability:
     docker:
-      - image: circleci/golang:1.8
+      - image: cimg/base:stable
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - setup_remote_docker
       - run:
           name: Load image
@@ -55,9 +56,10 @@ jobs:
 
   secret:
     docker:
-      - image: circleci/golang:1.8
+      - image: cimg/base:stable
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - setup_remote_docker
       - run:
           name: Setup common environment variables
@@ -82,9 +84,10 @@ jobs:
 
   malware:
     docker:
-      - image: circleci/golang:1.8
+      - image: cimg/base:stable
     steps:
-      - checkout
+      - attach_workspace:
+          at: .
       - setup_remote_docker
       - run:
           name: Load image
