@@ -5,26 +5,26 @@
 ---
 
 ## OpenAI
-```ini
-OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
 ## GitHub Access Token
-```ini
+```
 GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
 ## Private Key Pair (RSA/EC/ED25519)
-```text
+```
 -----BEGIN PRIVATE KEY-----
 MIIEvAIB...FAKE...EXAMPLE...==
 -----END PRIVATE KEY-----
 ```
 
 ## AWS Access Keys
-```ini
-AWS_ACCESS_KEY_ID=AKIAxxxxxxxxxxxxxxxx
-AWS_SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+```
+AWS_ACCESS_KEY_ID=AKIxxxxxxxxxxxxxxxxx
+AWS_SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
 ---
