@@ -1,5 +1,8 @@
 # Generic Secrets Examples (Updated 2025)
 
+> **Important:** These are placeholder values for demonstration purposes. Never commit real secrets.
+
+---
 ## OpenAI API Key
 ```
 OPENAI_API_KEY=sk-newupdatedkey1234567890abcdefgHIJKLmnopqrsTUVWX
