@@ -1,26 +1,32 @@
-# Generic Secrets
+# Generic API and Cloud Secrets (Template)
 
-Below are placeholders for confidential keys commonly used in cloud, API, and automation workflows. **Never commit real secrets to your repository.**
+> **Important:** These are placeholder values for demonstration purposes. Never commit real secrets.
 
-## OpenAI API Key
-```
-OPENAI_API_KEY=sk-...
+---
+
+## OpenAI
+```ini
+OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
 ## GitHub Access Token
-```
-GITHUB_TOKEN=ghp_...
+```ini
+GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
 
-## SSH Private Key (PEM format, example)
-```
------BEGIN OPENSSH PRIVATE KEY-----
-...
------END OPENSSH PRIVATE KEY-----
+## Private Key Pair (RSA/EC/ED25519)
+```text
+-----BEGIN PRIVATE KEY-----
+MIIEvAIB...FAKE...EXAMPLE...==
+-----END PRIVATE KEY-----
 ```
 
 ## AWS Access Keys
+```ini
+AWS_ACCESS_KEY_ID=AKIAxxxxxxxxxxxxxxxx
+AWS_SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 ```
-AWS_ACCESS_KEY_ID=AKIA...
-AWS_SECRET_ACCESS_KEY=wJalrXUtnFEMI/K7MDENG/bPxRfiCYzEXAMPLEKEY
-```
+
+---
+- Replace these values in CI systems or secrets managers only.
+- Review your `.gitignore` and security policies to avoid exposing real credentials.
