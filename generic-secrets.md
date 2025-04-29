@@ -1,32 +1,26 @@
-# Generic API and Cloud Secrets (Template)
+# Generic Secrets Examples (Updated 2025)
 
 > **Important:** These are placeholder values for demonstration purposes. Never commit real secrets.
 
 ---
-
-## OpenAI
+## OpenAI API Key
 ```
-OPENAI_API_KEY=sk-xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+OPENAI_API_KEY=sk-newupdatedkey1234567890abcdefgHIJKLmnopqrsTUVWX
 ```
 
 ## GitHub Access Token
 ```
-GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+GITHUB_TOKEN=ghp_NEWUPDATEDGITHUBTOKEN0123456789ABCDEF
 ```
 
-## Private Key Pair (RSA/EC/ED25519)
+## Private Key Pair
 ```
------BEGIN PRIVATE KEY-----
-MIIEvAIB...FAKE...EXAMPLE...==
------END PRIVATE KEY-----
+PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nMIIEpAIBAAKCAQEA2hVibl...UPDATEDKEY...BlwIDAQAB\n-----END PRIVATE KEY-----"
+PUBLIC_KEY="ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDbNEWUPDATEDKEY user@sample"
 ```
 
 ## AWS Access Keys
 ```
-AWS_ACCESS_KEY_ID=AKIxxxxxxxxxxxxxxxxx
-AWS_SECRET_ACCESS_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+AWS_ACCESS_KEY_ID=AKIAUPDATEDACCESSKEY00001
+AWS_SECRET_ACCESS_KEY=updatedSecretKey999999999/abcdefghijklmno
 ```
-
----
-- Replace these values in CI systems or secrets managers only.
-- Review your `.gitignore` and security policies to avoid exposing real credentials.
